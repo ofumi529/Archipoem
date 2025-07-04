@@ -1,0 +1,886 @@
+/* 建築詩学 - 詩的な建築サイト CSS */
+
+/* リセットとベース設定 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Serif JP', serif;
+    line-height: 1.8;
+    color: #2c2c2c;
+    background: linear-gradient(135deg, #f7f5f3 0%, #ebe7e1 100%);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* 詩的な背景テクスチャ */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 118, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(120, 119, 118, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(139, 123, 102, 0.02) 0%, transparent 70%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* 浮遊する詩的要素 */
+.floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-dot {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: rgba(139, 123, 102, 0.3);
+    border-radius: 50%;
+    animation: float 20s infinite ease-in-out;
+}
+
+.floating-dot:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-dot:nth-child(2) {
+    top: 60%;
+    left: 80%;
+    animation-delay: 5s;
+}
+
+.floating-dot:nth-child(3) {
+    top: 40%;
+    left: 60%;
+    animation-delay: 10s;
+}
+
+.floating-dot:nth-child(4) {
+    top: 80%;
+    left: 30%;
+    animation-delay: 15s;
+}
+
+.floating-dot:nth-child(5) {
+    top: 30%;
+    left: 90%;
+    animation-delay: 8s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    padding: 0 2rem;
+}
+
+/* ヒーロー・ヘッダー */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 2rem 0;
+    overflow: hidden;
+}
+
+/* 建築・詩・石・旅の抽象的背景 */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.15;
+    background-image: 
+        /* 石のテクスチャ - 散らばる小石 */
+        radial-gradient(circle at 15% 25%, rgba(139,123,102,0.8) 2px, transparent 3px),
+        radial-gradient(circle at 45% 15%, rgba(139,123,102,0.6) 1.5px, transparent 2.5px),
+        radial-gradient(circle at 75% 35%, rgba(139,123,102,0.7) 2.5px, transparent 3.5px),
+        radial-gradient(circle at 25% 65%, rgba(139,123,102,0.5) 1px, transparent 2px),
+        radial-gradient(circle at 85% 75%, rgba(139,123,102,0.9) 3px, transparent 4px),
+        radial-gradient(circle at 55% 85%, rgba(139,123,102,0.4) 1.5px, transparent 2.5px),
+        
+        /* 建築的ライン - 柱と梁 */
+        linear-gradient(90deg, transparent 20%, rgba(139,123,102,0.5) 21%, rgba(139,123,102,0.5) 22%, transparent 23%),
+        linear-gradient(0deg, transparent 40%, rgba(139,123,102,0.4) 41%, rgba(139,123,102,0.4) 42%, transparent 43%),
+        linear-gradient(45deg, transparent 60%, rgba(139,123,102,0.45) 61%, rgba(139,123,102,0.45) 62%, transparent 63%),
+        
+        /* 旅路 - 曲線的な道 */
+        radial-gradient(ellipse 200px 50px at 30% 30%, rgba(139,123,102,0.25), transparent),
+        radial-gradient(ellipse 150px 40px at 70% 70%, rgba(139,123,102,0.22), transparent),
+        radial-gradient(ellipse 180px 45px at 50% 90%, rgba(139,123,102,0.28), transparent),
+        
+        /* 詩的な流線 - 言葉の流れ */
+        linear-gradient(30deg, transparent 48%, rgba(139,123,102,0.18) 49%, rgba(139,123,102,0.18) 51%, transparent 52%),
+        linear-gradient(150deg, transparent 70%, rgba(139,123,102,0.15) 71%, rgba(139,123,102,0.15) 73%, transparent 74%),
+        linear-gradient(-30deg, transparent 25%, rgba(139,123,102,0.2) 26%, rgba(139,123,102,0.2) 28%, transparent 29%);
+    
+    background-size: 
+        120px 120px, 80px 80px, 150px 150px, 60px 60px, 180px 180px, 90px 90px, /* 石 */
+        400px 400px, 300px 300px, 350px 350px, /* 建築ライン */
+        400px 200px, 300px 150px, 360px 180px, /* 旅路 */
+        250px 250px, 200px 200px, 280px 280px; /* 詩的流線 */
+    
+    background-position: 
+        0 0, 40px 40px, 80px 80px, 20px 20px, 140px 140px, 60px 60px, /* 石 */
+        0 0, 100px 100px, 200px 200px, /* 建築ライン */
+        0 50px, 200px 250px, 100px 450px, /* 旅路 */
+        50px 50px, 150px 150px, 250px 250px; /* 詩的流線 */
+    
+    z-index: 0;
+    pointer-events: none;
+    animation: subtleMove 60s ease-in-out infinite;
+}
+
+/* 追加の詩的要素 - 浮遊する文字のような形 */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.08;
+    background-image: 
+        /* 抽象的な文字・記号の形 */
+        radial-gradient(ellipse 30px 80px at 20% 20%, rgba(139,123,102,1), transparent),
+        radial-gradient(ellipse 25px 60px at 80% 30%, rgba(139,123,102,1), transparent),
+        radial-gradient(ellipse 35px 90px at 40% 80%, rgba(139,123,102,1), transparent),
+        radial-gradient(ellipse 20px 50px at 90% 90%, rgba(139,123,102,1), transparent),
+        radial-gradient(ellipse 40px 100px at 10% 70%, rgba(139,123,102,1), transparent),
+        
+        /* 建築的なアーチとドーム */
+        radial-gradient(ellipse at 60% 40%, rgba(139,123,102,0.6) 30%, transparent 31%),
+        radial-gradient(ellipse at 30% 60%, rgba(139,123,102,0.5) 25%, transparent 26%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,123,102,0.55) 20%, transparent 21%);
+    
+    background-size: 
+        100px 200px, 80px 160px, 120px 240px, 60px 120px, 140px 280px, /* 文字的形状 */
+        200px 100px, 150px 75px, 180px 90px; /* アーチとドーム */
+    
+    z-index: 0;
+    pointer-events: none;
+    animation: subtleMove2 80s ease-in-out infinite reverse;
+}
+
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(247, 245, 243, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(139, 123, 102, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    padding: 1rem 0;
+}
+
+.navigation .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #8b7b66;
+    letter-spacing: 0.2em;
+    font-family: 'Playfair Display', serif;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #2c2c2c;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    position: relative;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.nav-menu a:hover {
+    color: #8b7b66;
+}
+
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: -0.3rem;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #8b7b66;
+    transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+/* ヒーローコンテンツ */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: #8b7b66;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+}
+
+.title-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.title-line:nth-child(1) { animation-delay: 0.3s; }
+.title-line:nth-child(2) { animation-delay: 0.6s; }
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeIn 1s ease 1.2s forwards;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #8b7b66;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+    opacity: 0.7;
+}
+
+.scroll-arrow {
+    width: 1px;
+    height: 40px;
+    background: #8b7b66;
+    position: relative;
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+.scroll-arrow::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid #8b7b66;
+}
+
+/* セクション共通スタイル */
+section {
+    padding: 6rem 0;
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #8b7b66;
+    margin-bottom: 1rem;
+    letter-spacing: 0.2em;
+    text-align: center;
+}
+
+.section-intro {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.8;
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: #a0927f;
+    letter-spacing: 0.3em;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* 旅路セクション */
+.journey-section {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.journey-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.journey-card {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(139, 123, 102, 0.2);
+}
+
+.journey-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.card-number {
+    font-size: 1.2rem;
+    color: #8b7b66;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+}
+
+.journey-card h3 {
+    font-size: 1.3rem;
+    color: #2c2c2c;
+    margin-bottom: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+}
+
+.journey-card p {
+    color: #666;
+    line-height: 1.8;
+    font-size: 0.95rem;
+}
+
+/* 詩集セクション */
+.poems-section {
+    background: rgba(255, 255, 255, 0.5);
+    position: relative;
+}
+
+.poems-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(139,123,102,0.02) 100px, transparent 101px),
+        radial-gradient(circle at 90% 80%, rgba(139,123,102,0.015) 80px, transparent 81px),
+        radial-gradient(circle at 50% 50%, rgba(139,123,102,0.01) 120px, transparent 121px);
+    pointer-events: none;
+}
+
+.poems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.poem-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+    border: 1px solid rgba(139, 123, 102, 0.2);
+    position: relative;
+}
+
+.poem-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.02) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.02) 100%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.poem-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+    filter: contrast(1.05) brightness(1.02);
+}
+
+.poem-card:hover::after {
+    opacity: 1;
+}
+
+.poem-header {
+    background: linear-gradient(135deg, #8b7b66, #a0927f);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.poem-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(100%) contrast(0.3);
+}
+
+/* サグラダ・ファミリア - 石の森パターン */
+.poem-card:nth-child(1) .poem-header::before {
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.3) 2px, transparent 2px),
+        radial-gradient(circle at 60% 70%, rgba(255,255,255,0.2) 1px, transparent 1px),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.25) 1.5px, transparent 1.5px),
+        linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 42%, rgba(255,255,255,0.1) 58%, transparent 60%);
+    background-size: 40px 40px, 20px 20px, 30px 30px, 80px 80px;
+}
+
+/* 金閣寺 - 波紋パターン */
+.poem-card:nth-child(2) .poem-header::before {
+    background-image: 
+        radial-gradient(circle at center, transparent 20%, rgba(255,255,255,0.15) 21%, rgba(255,255,255,0.15) 22%, transparent 23%),
+        radial-gradient(circle at center, transparent 40%, rgba(255,255,255,0.1) 41%, rgba(255,255,255,0.1) 42%, transparent 43%),
+        radial-gradient(circle at center, transparent 60%, rgba(255,255,255,0.05) 61%, rgba(255,255,255,0.05) 62%, transparent 63%);
+    background-size: 60px 60px;
+}
+
+/* パルテノン神殿 - 柱パターン */
+.poem-card:nth-child(3) .poem-header::before {
+    background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 8px, rgba(255,255,255,0.2) 8px, rgba(255,255,255,0.2) 12px, transparent 12px, transparent 20px),
+        linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 100% 100%, 25px 100%;
+}
+
+/* タージ・マハル - ドームパターン */
+.poem-card:nth-child(4) .poem-header::before {
+    background-image: 
+        radial-gradient(ellipse at center top, rgba(255,255,255,0.2) 30%, transparent 31%),
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 10%, transparent 11%),
+        radial-gradient(circle at 75% 25%, rgba(255,255,255,0.1) 10%, transparent 11%),
+        radial-gradient(circle at 25% 75%, rgba(255,255,255,0.1) 10%, transparent 11%),
+        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 10%, transparent 11%);
+    background-size: 100px 50px, 50px 50px, 50px 50px, 50px 50px, 50px 50px;
+}
+
+/* ファルンワースハウス - ミニマルライン */
+.poem-card:nth-child(5) .poem-header::before {
+    background-image: 
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.2) 25%, rgba(255,255,255,0.2) 26%, transparent 27%),
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.15) 26%, transparent 27%);
+    background-size: 40px 40px;
+}
+
+/* ロンシャン礼拝堂 - 有機的カーブ */
+.poem-card:nth-child(6) .poem-header::before {
+    background-image: 
+        radial-gradient(ellipse 60px 30px at 50% 0%, rgba(255,255,255,0.2), transparent),
+        radial-gradient(ellipse 40px 20px at 0% 50%, rgba(255,255,255,0.15), transparent),
+        radial-gradient(ellipse 50px 25px at 100% 50%, rgba(255,255,255,0.15), transparent);
+    background-size: 80px 60px, 60px 40px, 70px 50px;
+    background-position: center top, left center, right center;
+}
+
+.poem-title {
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+}
+
+.poem-location {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    letter-spacing: 0.1em;
+}
+
+.poem-content {
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.poem-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.03;
+    pointer-events: none;
+}
+
+/* サグラダ・ファミリア - 有機的な成長パターン */
+.poem-card:nth-child(1) .poem-content::before {
+    background-image: 
+        radial-gradient(ellipse at 20% 80%, rgba(139,123,102,1) 5%, transparent 6%),
+        radial-gradient(ellipse at 80% 20%, rgba(139,123,102,1) 3%, transparent 4%),
+        radial-gradient(ellipse at 60% 60%, rgba(139,123,102,1) 4%, transparent 5%);
+    background-size: 120px 180px, 80px 120px, 100px 150px;
+}
+
+/* 金閣寺 - 楓と波紋 */
+.poem-card:nth-child(2) .poem-content::before {
+    background-image: 
+        radial-gradient(circle at 30% 20%, rgba(139,123,102,1) 2%, transparent 3%),
+        radial-gradient(circle at 70% 80%, rgba(139,123,102,1) 1.5%, transparent 2.5%),
+        linear-gradient(45deg, transparent 48%, rgba(139,123,102,0.5) 49%, rgba(139,123,102,0.5) 51%, transparent 52%);
+    background-size: 60px 60px, 40px 40px, 100px 100px;
+}
+
+/* パルテノン神殿 - 幾何学パターン */
+.poem-card:nth-child(3) .poem-content::before {
+    background-image: 
+        linear-gradient(90deg, transparent 32%, rgba(139,123,102,1) 33%, rgba(139,123,102,1) 34%, transparent 35%),
+        linear-gradient(45deg, transparent 48%, rgba(139,123,102,0.7) 49%, rgba(139,123,102,0.7) 51%, transparent 52%);
+    background-size: 30px 30px, 60px 60px;
+}
+
+/* タージ・マハル - アラベスク模様 */
+.poem-card:nth-child(4) .poem-content::before {
+    background-image: 
+        radial-gradient(circle at 25% 25%, rgba(139,123,102,1) 8%, transparent 9%),
+        radial-gradient(circle at 75% 75%, rgba(139,123,102,1) 6%, transparent 7%),
+        radial-gradient(circle at 75% 25%, rgba(139,123,102,1) 4%, transparent 5%),
+        radial-gradient(circle at 25% 75%, rgba(139,123,102,1) 5%, transparent 6%);
+    background-size: 80px 80px;
+}
+
+/* ファルンワースハウス - ミニマルグリッド */
+.poem-card:nth-child(5) .poem-content::before {
+    background-image: 
+        linear-gradient(90deg, rgba(139,123,102,1) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(139,123,102,1) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* ロンシャン礼拝堂 - 光の射線 */
+.poem-card:nth-child(6) .poem-content::before {
+    background-image: 
+        radial-gradient(ellipse at center, transparent 60%, rgba(139,123,102,1) 61%, rgba(139,123,102,1) 62%, transparent 63%),
+        linear-gradient(30deg, transparent 48%, rgba(139,123,102,0.8) 49%, rgba(139,123,102,0.8) 51%, transparent 52%),
+        linear-gradient(150deg, transparent 48%, rgba(139,123,102,0.6) 49%, rgba(139,123,102,0.6) 51%, transparent 52%);
+    background-size: 120px 120px, 80px 80px, 80px 80px;
+}
+
+.poem-content p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #2c2c2c;
+    letter-spacing: 0.05em;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    opacity: 1;
+    transform: translateY(0);
+    min-height: 200px; /* タイピング中の高さを確保 */
+}
+
+/* タイピング効果中のカーソル */
+.poem-content p:not(.typed)::after {
+    content: '|';
+    color: #8b7b66;
+    animation: blink 1s infinite;
+    font-weight: 300;
+}
+
+.poem-content p.typed::after {
+    content: '';
+}
+
+/* カーソルの点滅アニメーション */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* タイピング効果の微調整 */
+.poem-content p.typing {
+    color: #2c2c2c;
+}
+
+/* 詩廊セクション */
+.gallery-section {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 2.5rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(139, 123, 102, 0.2);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.gallery-content h4 {
+    font-size: 1.2rem;
+    color: #8b7b66;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+}
+
+.gallery-content p {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.8;
+    font-style: italic;
+}
+
+/* 省察セクション */
+.reflections-section {
+    background: rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+.reflection-content {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.reflection-content p {
+    font-size: 1.1rem;
+    line-height: 2;
+    color: #555;
+    letter-spacing: 0.05em;
+}
+
+/* フッター */
+.footer {
+    background: rgba(139, 123, 102, 0.1);
+    padding: 3rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(139, 123, 102, 0.2);
+}
+
+.footer p {
+    color: #8b7b66;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+}
+
+/* アニメーション */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% { 
+        transform: translateY(0px) scale(1);
+        opacity: 0.3;
+    }
+    50% { 
+        transform: translateY(-20px) scale(1.2);
+        opacity: 0.7;
+    }
+}
+
+/* 背景の微細な動き */
+@keyframes subtleMove {
+    0%, 100% { 
+        transform: translateX(0) translateY(0) scale(1);
+    }
+    25% { 
+        transform: translateX(5px) translateY(-3px) scale(1.01);
+    }
+    50% { 
+        transform: translateX(-3px) translateY(5px) scale(0.99);
+    }
+    75% { 
+        transform: translateX(2px) translateY(-2px) scale(1.005);
+    }
+}
+
+@keyframes subtleMove2 {
+    0%, 100% { 
+        transform: translateX(0) translateY(0) scale(1) rotate(0deg);
+    }
+    33% { 
+        transform: translateX(-2px) translateY(3px) scale(1.01) rotate(0.2deg);
+    }
+    66% { 
+        transform: translateX(3px) translateY(-2px) scale(0.99) rotate(-0.1deg);
+    }
+}
+
+@keyframes scrollPulse {
+    0%, 100% { 
+        opacity: 0.5; 
+        transform: scaleY(1); 
+    }
+    50% { 
+        opacity: 1; 
+        transform: scaleY(1.2); 
+    }
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .navigation .container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-menu {
+        gap: 1.5rem;
+    }
+    
+    .hero-content {
+        padding: 6rem 1rem 4rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .journey-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .poems-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    section {
+        padding: 4rem 0;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .journey-card {
+        padding: 2rem;
+    }
+    
+    .poem-card {
+        margin: 0 0.5rem;
+    }
+    
+    .gallery-item {
+        padding: 2rem;
+    }
+}
